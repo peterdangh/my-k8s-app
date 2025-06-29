@@ -1,0 +1,19 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+metadata:
+  name: nodejs-app
+  labels:
+    app: nodejs-app
+
+resources:
+  - configmaps/app-cm.yaml
+  - deployment.yaml
+  - service.yaml
+  - ingress.yaml
+
+commonLabels:
+  app: nodejs-app
+  version: v1.0.0
+
+namespace: default

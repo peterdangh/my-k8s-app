@@ -1,0 +1,24 @@
+# app.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: nodejs-app
+  namespace: argocd
+  labels:
+    app: nodejs-app
+spec:
+  project: nodejs-project
+  source:
+    repoURL: https://github.com/peterdangh/k8s-node-app
+    targetRevision: HEAD
+    path: my-k8s-app
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+  revisionHistoryLimit: 10
